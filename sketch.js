@@ -57,7 +57,18 @@ function drawSand() {
 
 //Updates the grid to move the sand
 function updateGrid() {
-
+  for (let i = rows - 2; i >= 0; i--) {
+    for (let j = cols - 1; j >= 0; j--) {
+      //Sand falls down
+      if (grid[i][j] != 0) {
+        let below = grid[i + 1][j];
+        if (below == 0) {
+          grid[i + 1][j] = grid[i][j];
+          grid[i][j] = 0;
+        }
+      }
+    }
+  }
 }
 
 function draw() {
