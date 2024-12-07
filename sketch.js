@@ -1,5 +1,5 @@
 // image variables
-let backgroundBB;
+let backgroundHole;
 
 // variables for the sand
 let grid;
@@ -8,7 +8,7 @@ let rows;
 let cols;
 
 function setup() {
-  backgroundBB = loadImage('./Assets/bg_bb.png');
+  backgroundHole = loadImage('./Assets/Background Hole Sand.png');
   createCanvas(1200, 950);
  
   createGrid();
@@ -73,7 +73,7 @@ function updateGrid() {
 
 function draw() {
   background("brown");
-  image(backgroundBB, 0, 0, width);
+  image(backgroundHole, 0, 0, width);
 
   noStroke();
   drawSand();
