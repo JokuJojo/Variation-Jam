@@ -12,6 +12,7 @@ let state = "Menu Screen";
 // let state = "Loser Ending";
 
 //Music
+let music
 
 
 // image variables
@@ -27,10 +28,14 @@ let rows;
 let cols;
 
 function setup() {
+  //Images
   walter = loadImage('./Assets/Walter White.png');
   jesse = loadImage('./Assets/Jesse Pinkman.png');
   flour = loadImage('./Assets/flour.png');  
   backgroundHole = loadImage('./Assets/Background.png');
+
+  //Music
+  music = loadSound("./Assets/03. smoking jesse's pot (1).mp3");
 
   createCanvas(1200, 950);
   createGrid();
@@ -68,6 +73,16 @@ function randomSandColor() {
   return random(sandColors);
 }
 
+function mousePressed() {
+  if (!music.isPlaying()) {
+    music.play(); // Start playing the music when the user clicks
+  }
+}
+
+  // Restarts the music once music ends
+  music.onended(function() {
+    music.play(); 
+  });
 
 //Controls when sand goes down
 function mouseDragged() {
@@ -141,22 +156,19 @@ function draw() {
 
 }
 
-//Click Play on Menu Screen
 function showMenuScreen() {
   image(backgroundHole, 0, 0, width);
-  text ("Help Mr.White");
+  // text("Help Mr.White.", width / 2, height / 2);
 }
 
-//Helping Mr.White!
-function drawGameplay()  {
-  draw();
-  drawSand();
-  mouseDragged();
-  randomSandColor();
-  createGrid();
-  updateGrid();
+function gameplay() {
+  
 }
 
-//You did it!
+function winningEnding() {
+  
+}
 
-//You lose.
+function loserEnding() {
+  
+}
