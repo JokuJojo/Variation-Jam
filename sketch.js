@@ -5,11 +5,9 @@
 
 //Can you help Walter and his friend Jess hide his flour?//
 
-//States (Menu screen)
+//Opening state
 let state = "Menu Screen";
-// let state = "Gameplay";
-// let state = "Winner Ending";
-// let state = "Loser Ending";
+
 
 //Music
 let music
@@ -76,13 +74,11 @@ function randomSandColor() {
 function mousePressed() {
   if (!music.isPlaying()) {
     music.play(); // Start playing the music when the user clicks
+    music.loop(); //Restarts music 
   }
 }
 
-  // Restarts the music once music ends
-  music.onended(function() {
-    music.play(); 
-  });
+
 
 //Controls when sand goes down
 function mouseDragged() {
@@ -137,7 +133,7 @@ function draw() {
   updateGrid();
 
 
-  //State
+  //States order
   if (state === "Menu screen") {
     showMenuScreen();
   }
