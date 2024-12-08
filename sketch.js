@@ -1,4 +1,8 @@
 // image variables
+
+let walter;
+let jesse;
+let flour;
 let backgroundHole;
 
 // variables for the sand
@@ -8,7 +12,10 @@ let rows;
 let cols;
 
 function setup() {
-  backgroundHole = loadImage('./Assets/Background Hole Sand.png');
+  walter = loadImage('./Assets/Walter White.png');
+  jesse = loadImage('./Assets/Jesse Pinkman.png');
+  flour = loadImage('./Assets/flour.png');  
+  backgroundHole = loadImage('./Assets/Background.png');
   createCanvas(1200, 950);
  
   createGrid();
@@ -72,8 +79,12 @@ function updateGrid() {
 }
 
 function draw() {
-  background("brown");
+  background("gold");
   image(backgroundHole, 0, 0, width);
+  image(walter, 0, 0, width);
+  image(jesse, 0, 0, width);
+  image(flour, 0, 0, width);
+
 
   noStroke();
   drawSand();
