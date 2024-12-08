@@ -16,8 +16,8 @@ function setup() {
   jesse = loadImage('./Assets/Jesse Pinkman.png');
   flour = loadImage('./Assets/flour.png');  
   backgroundHole = loadImage('./Assets/Background.png');
+
   createCanvas(1200, 950);
- 
   createGrid();
 }
 
@@ -25,7 +25,6 @@ function setup() {
 function createGrid() { 
   cols = width / CELL_WIDTH;
   rows = height / CELL_WIDTH;
-
 
   //Outer array
   grid = []; 
@@ -39,13 +38,29 @@ function createGrid() {
     
 }
 
+// Generates grain of sand's colour pallette
+function randomSandColor() {
+  const sandColors = [
+    color(227, 184, 140), // Lightest sand
+    color(223, 181, 141), // Less light sand
+    color(225, 172, 114), // Orange-ish Sand
+    color(207, 158, 105), // darker orange-ish sand
+    color(208, 172, 129), // Soft dark sand
+    color(173, 134, 85)  // darkest sand
+  ];
+
+  // Return a random sand colour from the list
+  return random(sandColors);
+}
+
+
 //Controls when sand goes down
 function mouseDragged() {
   //Mainting it to stay inside the Canvas
   if (mouseX >= 0 && mouseX <= 1200 && mouseY >= 0 && mouseY <= 950) {
     let x = int(mouseY / CELL_WIDTH);
     let y = int(mouseX / CELL_WIDTH);
-    grid[x][y] = "gold";
+    grid[x][y] = randomSandColor(); // Assign a random beige color to the sand;
   }
 }
 
