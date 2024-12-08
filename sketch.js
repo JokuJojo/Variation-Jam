@@ -1,5 +1,20 @@
-// image variables
 
+// For variation jam assignement//
+//Title: Walter the Explorer//
+//bye: Jorane Milot//
+
+//Can you help Walter and his friend Jess hide his flour?//
+
+//States (Menu screen)
+let state = "Menu Screen";
+// let state = "Gameplay";
+// let state = "Winner Ending";
+// let state = "Loser Ending";
+
+//Music
+
+
+// image variables
 let walter;
 let jesse;
 let flour;
@@ -49,7 +64,7 @@ function randomSandColor() {
     color(173, 134, 85)  // darkest sand
   ];
 
-  // Return a random sand colour from the list
+  // Return a random sand colour from teh colour pallette
   return random(sandColors);
 }
 
@@ -60,7 +75,7 @@ function mouseDragged() {
   if (mouseX >= 0 && mouseX <= 1200 && mouseY >= 0 && mouseY <= 950) {
     let x = int(mouseY / CELL_WIDTH);
     let y = int(mouseX / CELL_WIDTH);
-    grid[x][y] = randomSandColor(); // Assign a random beige color to the sand;
+    grid[x][y] = randomSandColor(); //Assigns the sand colour pallette
   }
 }
 
@@ -93,6 +108,7 @@ function updateGrid() {
   }
 }
 
+//Sets images
 function draw() {
   background("gold");
   image(backgroundHole, 0, 0, width);
@@ -104,4 +120,43 @@ function draw() {
   noStroke();
   drawSand();
   updateGrid();
+
+
+  //State
+  if (state === "Menu screen") {
+    showMenuScreen();
+  }
+  else if (state === "Gameplay") {
+    gameplay();
+  }
+  //if you manage to fill the hole and hide the flour
+  else if (state === "Winning Ending") {  
+    winningEnding();
+  }
+  //or
+  //if you get caught or say no
+  else if (state === "Loser Ending") {
+    loserEnding();
+  }
+
 }
+
+//Click Play on Menu Screen
+function showMenuScreen() {
+  image(backgroundHole, 0, 0, width);
+  text ("Help Mr.White");
+}
+
+//Helping Mr.White!
+function drawGameplay()  {
+  draw();
+  drawSand();
+  mouseDragged();
+  randomSandColor();
+  createGrid();
+  updateGrid();
+}
+
+//You did it!
+
+//You lose.
