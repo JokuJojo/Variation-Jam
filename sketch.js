@@ -1,17 +1,15 @@
 
 // For variation jam assignement//
-//Title: Walter the Explorer//
+//Title: Will you Help Mr.White?//
 //bye: Jorane Milot//
 
 //Can you help Walter and his friend Jess hide his flour?//
 
 //Opening state
-let state = "Menu Screen";
-
+let state = "Intro";
 
 //Music
 let music
-
 
 // image variables
 let walter;
@@ -19,21 +17,42 @@ let jesse;
 let flour;
 let backgroundHole;
 
+//Speech Bubbles and title
+let title;
+let text1;
+let text2;
+let text3;
+
+// Variables for the dialogue bubbles
+let dialogue = [];
+let dialogueIndex = 0;
+
 // variables for the sand
 let grid;
 const CELL_WIDTH = 10;
 let rows;
 let cols;
 
+//Buttons to start
+let helpButton;
+let noHelpButton;
+
 function setup() {
   //Images
   walter = loadImage('./Assets/Walter White.png');
   jesse = loadImage('./Assets/Jesse Pinkman.png');
   flour = loadImage('./Assets/flour.png');  
+  text1 = loadImage('./Assets/Dialogue Bubble 1.png'); 
+  text2 = loadImage('./Assets/Dialogue Bubble 2.png'); 
+  text3 = loadImage('./Assets/Dialogue Bubble 3.png'); 
+  title = loadImage('./Assets/Game Title.png'); 
   backgroundHole = loadImage('./Assets/Background.png');
 
   //Music
   music = loadSound("./Assets/03. smoking jesse's pot (1).mp3");
+
+  //Speech bubbles for intro state
+  dialogue = [text1, text2, title]; 
 
   createCanvas(1200, 950);
   createGrid();
@@ -72,18 +91,28 @@ function randomSandColor() {
 }
 
 function mousePressed() {
+  // Advance the dialogue in the Intro state
+  if (state === "Intro") {
+    dialogueIndex++;
+
+  //startes playing music
   if (!music.isPlaying()) {
-    music.play(); // Start playing the music when the user clicks
+    music.play(); 
     music.loop(); //Restarts music 
+    music.setVolume(0.05); //Volume 
   }
+  // Reset to 0 if we've gone through all dialogue images
+  if (dialogueIndex >= dialogue.length) {
+    dialogueIndex = 3; //limits the dialogue array
+    // state = "Gameplay"; // Transition to gameplay after the Intro
+    }
+   }
 }
-
-
 
 //Controls when sand goes down
 function mouseDragged() {
   //Mainting it to stay inside the Canvas
-  if (mouseX >= 0 && mouseX <= 1200 && mouseY >= 0 && mouseY <= 950) {
+  if (mouseX >= 0 && mouseX <= 1200 && mouseY >= 0 && mouseY <= 950 && state === "gameplay") {
     let x = int(mouseY / CELL_WIDTH);
     let y = int(mouseX / CELL_WIDTH);
     grid[x][y] = randomSandColor(); //Assigns the sand colour pallette
@@ -121,21 +150,30 @@ function updateGrid() {
 
 //Sets images
 function draw() {
-  background("gold");
+  background("gold"); 
+  
   image(backgroundHole, 0, 0, width);
   image(walter, 0, 0, width);
   image(jesse, 0, 0, width);
   image(flour, 0, 0, width);
 
 
+
   noStroke();
   drawSand();
   updateGrid();
 
+  //Current dialogue
+  let currentDialogue = dialogue [dialogueIndex];
+
+  //Displays dialogue
+  push();
+    image(currentDialogue, 0, 0, width);
+  pop();
 
   //States order
-  if (state === "Menu screen") {
-    showMenuScreen();
+  if (state === "Intro") {
+    showIntro();
   }
   else if (state === "Gameplay") {
     gameplay();
@@ -152,9 +190,18 @@ function draw() {
 
 }
 
-function showMenuScreen() {
+function showIntro() {
+
   image(backgroundHole, 0, 0, width);
-  // text("Help Mr.White.", width / 2, height / 2);
+  image(walter, 0, 0, width);
+  image(jesse, 0, 0, width);
+  image(flour, 0, 0, width);
+
+  // Display current dialogue bubbles
+  let currentDialogue = dialogue[dialogueIndex];
+  push();
+    image(currentDialogue, 0, 0, width);
+  pop();
 }
 
 function gameplay() {
