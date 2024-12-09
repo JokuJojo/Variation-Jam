@@ -33,10 +33,6 @@ const CELL_WIDTH = 10;
 let rows;
 let cols;
 
-//Buttons to start
-let helpButton;
-let noHelpButton;
-
 function setup() {
   //Images
   walter = loadImage('./Assets/Walter White.png');
@@ -48,11 +44,15 @@ function setup() {
   title = loadImage('./Assets/Game Title.png'); 
   backgroundHole = loadImage('./Assets/Background.png');
 
+
+  
   //Music
   music = loadSound("./Assets/03. smoking jesse's pot (1).mp3");
 
   //Speech bubbles for intro state
-  dialogue = [text1, text2, title]; 
+  dialogue = [text1, text2, title];   
+
+
 
   createCanvas(1200, 950);
   createGrid();
@@ -73,6 +73,16 @@ function createGrid() {
     }
   }
     
+}
+
+//Button to move into gameplay
+function help(){
+  state = "Gameplay";
+}
+
+//Button to move into gameplay
+function noHelp(){
+  state = "Loser Ending";
 }
 
 // Generates grain of sand's colour pallette
@@ -104,9 +114,18 @@ function mousePressed() {
   // Reset to 0 if we've gone through all dialogue images
   if (dialogueIndex >= dialogue.length) {
     dialogueIndex = 3; //limits the dialogue array
-    // state = "Gameplay"; // Transition to gameplay after the Intro
+  }
+     //hide
+  if (dialogue[dialogueIndex] === (text1)) {
+      helpButton.hide();
+      noHelpButton.hide(); 
+   } 
+    //shows buttons once on the title
+  if (dialogue[dialogueIndex] === (title)) {
+      helpButton.show();
+      noHelpButton.show(); 
     }
-   }
+  } 
 }
 
 //Controls when sand goes down
@@ -166,6 +185,26 @@ function draw() {
   //Current dialogue
   let currentDialogue = dialogue [dialogueIndex];
 
+  //Buttons to start
+  let helpButton = createButton ("Help Mr.White");
+  helpButton.position (1170, 710);
+  helpButton.mousePressed(help);
+
+  //styling the button
+  helpButton.style("font-size", "40px");
+  helpButton.style("background-color", "#4CAF50");
+  helpButton.style("color", "white");
+
+  //Button to... lose
+  let noHelpButton = createButton ("Don't help Mr.White");
+  noHelpButton.position (1170,790);
+  noHelpButton.mousePressed(noHelp);
+
+  //styling the button
+  noHelpButton.style("font-size", "40px");
+  noHelpButton.style("background-color", "#4CAF50");
+  noHelpButton.style("color", "white");  
+
   //Displays dialogue
   push();
     image(currentDialogue, 0, 0, width);
@@ -202,9 +241,11 @@ function showIntro() {
   push();
     image(currentDialogue, 0, 0, width);
   pop();
+
+  
 }
 
-function gameplay() {
+function Gameplay() {
   
 }
 
