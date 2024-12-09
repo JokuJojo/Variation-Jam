@@ -44,15 +44,11 @@ function setup() {
   title = loadImage('./Assets/Game Title.png'); 
   backgroundHole = loadImage('./Assets/Background.png');
 
-
-  
   //Music
   music = loadSound("./Assets/03. smoking jesse's pot (1).mp3");
 
   //Speech bubbles for intro state
   dialogue = [text1, text2, title];   
-
-
 
   createCanvas(1200, 950);
   createGrid();
@@ -75,15 +71,15 @@ function createGrid() {
     
 }
 
-//Button to move into gameplay
-function help(){
-  state = "Gameplay";
-}
+// //Button to move into gameplay
+// function help(){
+//   state = "Gameplay";
+// }
 
-//Button to move into gameplay
-function noHelp(){
-  state = "Loser Ending";
-}
+// //Button to move into gameplay
+// function noHelp(){
+//   state = "Loser Ending";
+// }
 
 // Generates grain of sand's colour pallette
 function randomSandColor() {
@@ -114,17 +110,13 @@ function mousePressed() {
   // Reset to 0 if we've gone through all dialogue images
   if (dialogueIndex >= dialogue.length) {
     dialogueIndex = 3; //limits the dialogue array
+    state === "Gameplay";
   }
-     //hide
-  if (dialogue[dialogueIndex] === (text1)) {
-      helpButton.hide();
-      noHelpButton.hide(); 
-   } 
-    //shows buttons once on the title
-  if (dialogue[dialogueIndex] === (title)) {
-      helpButton.show();
-      noHelpButton.show(); 
-    }
+  //    //hide
+  // if (dialogue[dialogueIndex] === (text1)) {
+  //     helpButton.hide();
+  //     noHelpButton.hide(); 
+  //  } 
   } 
 }
 
@@ -167,6 +159,28 @@ function updateGrid() {
   }
 }
 
+// function drawButtons() {
+//   //Buttons to start
+//   let helpButton = createButton ("Help Mr.White");
+//   helpButton.position (1170, 710);
+//   helpButton.mousePressed(help);
+
+//   //styling the button
+//   helpButton.style("font-size", "40px");
+//   helpButton.style("background-color", "#4CAF50");
+//   helpButton.style("color", "white");
+
+//   //Button to... lose
+//   let noHelpButton = createButton ("Don't help Mr.White");
+//   noHelpButton.position (1170,790);
+//   noHelpButton.mousePressed(noHelp);
+
+//   //styling the button
+//   noHelpButton.style("font-size", "40px");
+//   noHelpButton.style("background-color", "#4CAF50");
+//   noHelpButton.style("color", "white"); 
+// }
+
 //Sets images
 function draw() {
   background("gold"); 
@@ -176,8 +190,6 @@ function draw() {
   image(jesse, 0, 0, width);
   image(flour, 0, 0, width);
 
-
-
   noStroke();
   drawSand();
   updateGrid();
@@ -185,26 +197,13 @@ function draw() {
   //Current dialogue
   let currentDialogue = dialogue [dialogueIndex];
 
-  //Buttons to start
-  let helpButton = createButton ("Help Mr.White");
-  helpButton.position (1170, 710);
-  helpButton.mousePressed(help);
-
-  //styling the button
-  helpButton.style("font-size", "40px");
-  helpButton.style("background-color", "#4CAF50");
-  helpButton.style("color", "white");
-
-  //Button to... lose
-  let noHelpButton = createButton ("Don't help Mr.White");
-  noHelpButton.position (1170,790);
-  noHelpButton.mousePressed(noHelp);
-
-  //styling the button
-  noHelpButton.style("font-size", "40px");
-  noHelpButton.style("background-color", "#4CAF50");
-  noHelpButton.style("color", "white");  
-
+  // drawButtons();
+  //   //shows buttons once on the title
+  // if (dialogue[dialogueIndex] === (title)) {
+  //     helpButton.show();
+  //     noHelpButton.show(); 
+  //}
+  
   //Displays dialogue
   push();
     image(currentDialogue, 0, 0, width);
@@ -226,7 +225,6 @@ function draw() {
   else if (state === "Loser Ending") {
     loserEnding();
   }
-
 }
 
 function showIntro() {
@@ -238,11 +236,10 @@ function showIntro() {
 
   // Display current dialogue bubbles
   let currentDialogue = dialogue[dialogueIndex];
+
   push();
     image(currentDialogue, 0, 0, width);
   pop();
-
-  
 }
 
 function Gameplay() {
