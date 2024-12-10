@@ -91,7 +91,7 @@ function mousePressed() {
 //Controls when sand goes down
 function mouseDragged() {
   //Mainting it to stay inside the Canvas
-  if (mouseX >= 0 && mouseX <= 1200 && mouseY >= 0 && mouseY <= 950 && state === "gameplay") {
+  if (mouseX >= 0 && mouseX <= 1200 && mouseY >= 0 && mouseY <= 950 && state === "Gameplay") {
     let x = int(mouseY / CELL_WIDTH);
     let y = int(mouseX / CELL_WIDTH);
     grid[x][y] = randomSandColor(); //Assigns the sand colour pallette
@@ -150,13 +150,13 @@ function draw() {
   }
   //Game title
   else if (state === "Title") {
-    title();
+    titleState();
   }
   else if (state === "Gameplay Intro") {
     gameplayIntro();
   }
   else if (state === "Gameplay") {
-    gameplay();
+    drawGameplay();
   }
   //if you manage to fill the hole and hide the flour
   else if (state === "Winning Ending") {  
@@ -186,18 +186,36 @@ function showIntro() {
 
 function intro2() {
   image(text2, 0, 0, width);
+    //Title
+    if (mouseIsPressed){
+      state = "Title";
+      mouseIsPressed = false;
+    }
 }
 
-function title() {
+function titleState() {
   image(title, 0, 0, width);
+      //Title
+      if (mouseIsPressed){
+        state = "Gameplay Intro";
+        mouseIsPressed = false;
+      }
 }
 
 function gameplayIntro() {
   image(text3, 0, 0, width);
+   //Title
+   if (mouseIsPressed){
+    state = "Gameplay";
+    mouseIsPressed = false;
+  }
 }
 
 function drawGameplay() {
-  
+  drawSand();  
+  randomSandColor();
+  updateGrid();
+
 }
 
 function winningEnding() {
