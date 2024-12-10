@@ -144,6 +144,17 @@ function draw() {
   if (state === "Intro") {
     showIntro();
   }
+  //Next dialogue
+  else if (state === "Intro2") {
+    intro2();
+  }
+  //Game title
+  else if (state === "Title") {
+    title();
+  }
+  else if (state === "Gameplay Intro") {
+    gameplayIntro();
+  }
   else if (state === "Gameplay") {
     gameplay();
   }
@@ -165,17 +176,23 @@ function showIntro() {
   image(jesse, 0, 0, width);
   image(flour, 0, 0, width);
   image(text1, 0, 0, width);
+
+  //Change dialogue
+  if (mouseIsPressed){
+    state = "Intro2";
+    mouseIsPressed = false;
+  }
 }
 
-function Intro2() {
+function intro2() {
   image(text2, 0, 0, width);
 }
 
-function Title() {
+function title() {
   image(title, 0, 0, width);
 }
 
-function GameplayIntro() {
+function gameplayIntro() {
   image(text3, 0, 0, width);
 }
 
