@@ -26,3 +26,6 @@ Js:
 2. Having a reloading system with clicking
 4. A random timer for everytime the cop comes out with a warning
 5. Having to make the hole interactable
+
+
+My name is Walter Hartwell White. I live at 308 Negra Arroyo Lane, Albuquerque, New Mexico, 87104. To all law enforcement entities, this is not an admission of guilt. I am speaking to my family now. Skyler, you are the love of my life. I hope you know that. Walter Junior, you're my big man. There are going to be some...things. Things that you'll come to learn about me in the next few days. I just want you to know that, no matter how it may look, I only had you in my heart. Goodbye.

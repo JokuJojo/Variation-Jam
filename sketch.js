@@ -1,23 +1,33 @@
 
-// For variation jam assignement//
-//Title: Will you Help Mr.White?//
-//bye: Jorane Milot//
-
-//Can you help Walter and his friend Jess hide his flour?//
+/**
+ * Will You Help Mr.White?
+ * Jorane Milot
+ * 
+ * A game where you help Mr.White and his best friend Jesse, 
+ * hide their flour in a hole by filling it up with sand!
+ * 
+ * Controls: 
+ * - Drag your mouse to drop sand in the hole
+ * - Avoid getting caugt by the dog til it's full
+ * 
+ * Uses:
+ * p5.js
+ * https://p5js.org
+ */
 
 //Opening state
 let state = "Intro";
 
-//Music
+//Music Variable
 let music
 
-// image variables
+//Image's variables
 let walter;
 let jesse;
 let flour;
 let backgroundHole;
 
-//Speech Bubbles and title
+//Speech Bubbles and title (Images)
 let title;
 let text1;
 let text2;
@@ -30,7 +40,7 @@ let rows;
 let cols;
 
 function setup() {
-  //Images
+  //Images used
   walter = loadImage('./Assets/Walter White.png');
   jesse = loadImage('./Assets/Jesse Pinkman.png');
   flour = loadImage('./Assets/flour.png');  
@@ -38,9 +48,12 @@ function setup() {
   text2 = loadImage('./Assets/Dialogue Bubble 2.png'); 
   text3 = loadImage('./Assets/Dialogue Bubble 3.png'); 
   title = loadImage('./Assets/Game Title.png'); 
+  lost = loadImage('./Assets/Lost.png'); 
+  victory = loadImage('./Assets/Victory.png'); 
+  dober = loadImage('./Assets/Police Dog.png'); 
   backgroundHole = loadImage('./Assets/Background.png');
 
-  //Music
+  //Loads the music
   music = loadSound("./Assets/03. smoking jesse's pot (1).mp3");
 
   createCanvas(1200, 950);
@@ -74,23 +87,23 @@ function randomSandColor() {
     color(173, 134, 85)  // darkest sand
   ];
 
-  // Return a random sand colour from teh colour pallette
+  // Returns a random sand colour from the colour pallette
   return random(sandColors);
 }
 
+//Causes music to start once user clicks
 function mousePressed() {
   //startes playing music
   if (!music.isPlaying()) {
     music.play(); 
-    music.loop(); //Restarts music 
-    music.setVolume(0.05); //Volume 
+    music.loop(); //Restarts music after finished
+    music.setVolume(0.05); //adjust volume
   }
-  
-  } 
+} 
 
 //Controls when sand goes down
 function mouseDragged() {
-  //Mainting it to stay inside the Canvas
+  //Mainting it to stay inside the Canvas, and also within the gameplay state
   if (mouseX >= 0 && mouseX <= 1200 && mouseY >= 0 && mouseY <= 950 && state === "Gameplay") {
     let x = int(mouseY / CELL_WIDTH);
     let y = int(mouseX / CELL_WIDTH);
@@ -102,7 +115,7 @@ function mouseDragged() {
 function drawSand() {
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
-      //Check if sand exists
+      //Checks if sand exists
       if (grid[i][j] != 0) {
         fill(grid[i][j]);
         square(j * CELL_WIDTH, i * CELL_WIDTH, CELL_WIDTH);
@@ -115,7 +128,7 @@ function drawSand() {
 function updateGrid() {
   for (let i = rows - 2; i >= 0; i--) {
     for (let j = cols - 1; j >= 0; j--) {
-      //Sand falls down
+      //Makes sand fall down
       if (grid[i][j] != 0) {
         let below = grid[i + 1][j];
         if (below == 0) {
@@ -127,10 +140,10 @@ function updateGrid() {
   }
 }
 
-//Sets images
 function draw() {
   background("gold"); 
   
+  //Places the images
   image(backgroundHole, 0, 0, width);
   image(walter, 0, 0, width);
   image(jesse, 0, 0, width);
@@ -152,9 +165,11 @@ function draw() {
   else if (state === "Title") {
     titleState();
   }
+  //Explains how game works
   else if (state === "Gameplay Intro") {
     gameplayIntro();
   }
+  //Gamplay starts
   else if (state === "Gameplay") {
     drawGameplay();
   }
@@ -163,7 +178,7 @@ function draw() {
     winningEnding();
   }
   //or
-  //if you get caught or say no
+  //if you get caught
   else if (state === "Loser Ending") {
     loserEnding();
   }
@@ -177,15 +192,17 @@ function showIntro() {
   image(flour, 0, 0, width);
   image(text1, 0, 0, width);
 
-  //Change dialogue
+  //Change dialogue forward
   if (mouseIsPressed){
     state = "Intro2";
     mouseIsPressed = false;
   }
 }
 
+//Second peice of dialogue
 function intro2() {
   image(text2, 0, 0, width);
+
     //Title
     if (mouseIsPressed){
       state = "Title";
@@ -193,24 +210,29 @@ function intro2() {
     }
 }
 
+//Shows title
 function titleState() {
   image(title, 0, 0, width);
-      //Title
-      if (mouseIsPressed){
-        state = "Gameplay Intro";
-        mouseIsPressed = false;
-      }
+
+    //Introduces how to play game
+    if (mouseIsPressed){
+      state = "Gameplay Intro";
+      mouseIsPressed = false;
+    }
 }
 
+//Introduces the game instructions
 function gameplayIntro() {
   image(text3, 0, 0, width);
-   //Title
+
+   //Turns to the game
    if (mouseIsPressed){
     state = "Gameplay";
     mouseIsPressed = false;
   }
 }
 
+//The game itself, sand in hole 
 function drawGameplay() {
   drawSand();  
   randomSandColor();
@@ -218,10 +240,12 @@ function drawGameplay() {
 
 }
 
+//Good ending, you won!
 function winningEnding() {
   
 }
 
+//bad ending, you lost.
 function loserEnding() {
   
 }
