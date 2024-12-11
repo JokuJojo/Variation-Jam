@@ -124,6 +124,19 @@ function drawSand() {
   }
 }
 
+//Checks to see if hole is full
+function updateSand() {
+  for (let j = 60; j >= 21; j--) 
+    {if (grid[46][j] == 0) {
+         return;
+  }
+ }  
+ state = "Winning Ending";
+}
+
+
+
+
 //Updates the grid to move the sand
 function updateGrid() {
   for (let i = rows - 3; i >= 0; i--) {
@@ -139,6 +152,7 @@ function updateGrid() {
     }
   }
 }
+
 
 function draw() {
   background("gold"); 
@@ -237,12 +251,13 @@ function drawGameplay() {
   drawSand();  
   randomSandColor();
   updateGrid();
+  updateSand();
 
 }
 
 //Good ending, you won!
 function winningEnding() {
-  
+  image(victory, 0 ,0, width);
 }
 
 //bad ending, you lost.
