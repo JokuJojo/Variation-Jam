@@ -104,7 +104,7 @@ function mousePressed() {
 //Controls when sand goes down
 function mouseDragged() {
   //Mainting it to stay inside the Canvas, and also within the gameplay state
-  if (mouseX >= 0 && mouseX <= 1200 && mouseY >= 0 && mouseY <= 950 && state === "Gameplay") {
+  if (mouseX >= 210 && mouseX <= 605 && mouseY >= 0 && mouseY <= 950 && state === "Gameplay") {
     let x = int(mouseY / CELL_WIDTH);
     let y = int(mouseX / CELL_WIDTH);
     grid[x][y] = randomSandColor(); //Assigns the sand colour pallette
@@ -126,8 +126,8 @@ function drawSand() {
 
 //Updates the grid to move the sand
 function updateGrid() {
-  for (let i = rows - 2; i >= 0; i--) {
-    for (let j = cols - 1; j >= 0; j--) {
+  for (let i = rows - 3; i >= 0; i--) {
+    for (let j = 60; j >= 21; j--) {
       //Makes sand fall down
       if (grid[i][j] != 0) {
         let below = grid[i + 1][j];
