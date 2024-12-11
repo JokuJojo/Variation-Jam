@@ -39,6 +39,10 @@ const CELL_WIDTH = 10;
 let rows;
 let cols;
 
+// variables to control the timer
+let timeDuration = 35;
+let timeStart;
+
 function setup() {
   //Images used
   walter = loadImage('./Assets/Walter White.png');
@@ -105,9 +109,12 @@ function mousePressed() {
 function mouseDragged() {
   //Mainting it to stay inside the Canvas, and also within the gameplay state
   if (mouseX >= 210 && mouseX <= 605 && mouseY >= 0 && mouseY <= 950 && state === "Gameplay") {
-    let x = int(mouseY / CELL_WIDTH);
+    let x = int(mouseY / CELL_WIDTH );
     let y = int(mouseX / CELL_WIDTH);
     grid[x][y] = randomSandColor(); //Assigns the sand colour pallette
+
+    if (x != 21)
+      grid[x - 1][y] = randomSandColor();
   }
 }
 
@@ -242,26 +249,54 @@ function gameplayIntro() {
    //Turns to the game
    if (mouseIsPressed){
     state = "Gameplay";
-    mouseIsPressed = false;
+    mouseIsPressed = false; 
+    // Start timer
+          timeStart = millis();
   }
 }
 
 //The game itself, sand in hole 
 function drawGameplay() {
+  drawTimer();
   drawSand();  
   randomSandColor();
   updateGrid();
   updateSand();
 
+         
+
+
+}
+
+//Appearance and functionality of Timer, 
+// on the top left during the gameplay
+function drawTimer() {
+  let timeElapsed = millis() - timeStart;
+  timeElapsed = int(timeElapsed / 1000);
+  let timeLeft = timeDuration - timeElapsed;
+  
+  // What happens when timer runs out
+  if (timeLeft < 0) {
+    state = "Loser Ending";
+  }
+  //Timer counting down
+  else {
+    textSize(40);
+    fill("black");
+    text(timeLeft, 20, 40);
+  }
 }
 
 //Good ending, you won!
+//Police dog didn't have time to tracl the flour
 function winningEnding() {
   image(victory, 0 ,0, width);
 }
 
 //bad ending, you lost.
+//Police dog tracks you down
 function loserEnding() {
-  
+  image(lost, 0, 0, width);
+  image(dober, 0, 0, width);
 }
 
